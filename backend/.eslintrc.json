@@ -13,5 +13,7 @@
         "ecmaVersion": 2018
     },
     "rules": {
+        "array-bracket-spacing": ["error", "always"],
+        "object-curly-spacing": [2, "always"]
     }
 }

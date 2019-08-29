@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 const config = {
   serverPort: process.env.PORT || 3000,
-  workingDirectory: process.env.DIRECTORY
+  workingDirectory: process.env.DIRECTORY || process.cwd()
 };
 
 for (let param in config)
