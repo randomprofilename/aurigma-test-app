@@ -1,3 +1,9 @@
+const { readDirectory } = require("../../modules/fileManager");
+
 module.exports.get = (req, res, next) => {
-  res.json({ message: "Ok" });
+  try {
+    res.json({ message: "Ok" }); 
+  } catch (err) {
+    next(err);
+  }
 };
