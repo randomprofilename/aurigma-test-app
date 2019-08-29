@@ -1,4 +1,4 @@
-const { readFile } = require("../../modules/fileManager");
+const { readFile, writeFile } = require("../../modules/fileManager");
 
 module.exports.get = (req, res, next) => {
   const { subdir, filename, preview = false } = req.query;
@@ -15,8 +15,16 @@ module.exports.get = (req, res, next) => {
 };
 
 
-module.exports.post = (req, res, next) => {
-  console.log(req.body)
+module.exports.post = async (req, res, next) => {
+  try {
+    const { files, fields } = req;
+    const { subdir } = fields;
+    const [ file ] = Object.keys(files);
+    const tempfilePath = files[file].path;
 
-  res.json({ message: "Ok" });
+    writeFile(file, tempfilePath, subdir);
+    res.json({ message: "Ok" });
+  } catch (err) {
+    next(err); 
+  }
 };

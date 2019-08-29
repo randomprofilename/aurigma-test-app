@@ -24,5 +24,12 @@ const readFile = (filename, subDirectory = "") => {
   return fs.readFileSync(filepath);
 };
 
+const writeFile = (filename, tempfilePath, subDirectory = "") => {
+  const currentDirectory = workingDirectory + subDirectory;
+  if (!fs.existsSync(currentDirectory))
+    fs.mkdirSync(currentDirectory, { recursive: true });
 
-module.exports = { readDirectory, readFile };
+  fs.renameSync(tempfilePath, `${currentDirectory}/${filename}`);  
+};
+
+module.exports = { readDirectory, readFile, writeFile };
