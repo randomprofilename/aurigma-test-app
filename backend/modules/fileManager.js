@@ -32,4 +32,17 @@ const writeFile = (filename, tempfilePath, subDirectory = "") => {
   fs.renameSync(tempfilePath, `${currentDirectory}/${filename}`);  
 };
 
-module.exports = { readDirectory, readFile, writeFile };
+const deleteFile = (filename, subDirectory = "") => {
+  const currentDirectory = workingDirectory + subDirectory;
+  fs.unlinkSync(`${currentDirectory}/${filename}`);
+};
+
+const removeDirectory = subDirectory => {
+  if (!subDirectory)
+    throw new Error("Subdirectory param cannot be empty");
+
+  const currentDirectory = workingDirectory + subDirectory;
+  fs.rmdirSync(currentDirectory);
+};
+
+module.exports = { readDirectory, readFile, writeFile, deleteFile, removeDirectory };

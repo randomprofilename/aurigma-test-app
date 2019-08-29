@@ -1,4 +1,4 @@
-const { readFile, writeFile } = require("../../modules/fileManager");
+const { readFile, writeFile, deleteFile } = require("../../modules/fileManager");
 
 module.exports.get = (req, res, next) => {
   const { subdir, filename, preview = false } = req.query;
@@ -8,6 +8,7 @@ module.exports.get = (req, res, next) => {
     const fileExtension = filename.split(".").pop();
     if (!preview)
       res.setHeader('Content-disposition', 'attachment; filename=' + filename);
+      
     res.type(fileExtension).send(file);
   } catch (err) {
     next(err)
@@ -23,6 +24,16 @@ module.exports.post = async (req, res, next) => {
     const tempfilePath = files[file].path;
 
     writeFile(file, tempfilePath, subdir);
+    res.json({ message: "Ok" });
+  } catch (err) {
+    next(err); 
+  }
+};
+module.exports.delete = async (req, res, next) => {
+  try {
+    const { subdir, filename } = req.query;
+
+    deleteFile(filename, subdir);
     res.json({ message: "Ok" });
   } catch (err) {
     next(err); 

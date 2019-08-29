@@ -1,4 +1,4 @@
-const { readDirectory } = require("../../modules/fileManager");
+const { readDirectory, removeDirectory } = require("../../modules/fileManager");
 
 module.exports.get = (req, res, next) => {
   const { subdir } = req.query;
@@ -9,3 +9,13 @@ module.exports.get = (req, res, next) => {
     next(err);
   }
 };
+
+module.exports.delete = (req, res, next) => {
+  const { subdir } = req.query;
+  try {
+    removeDirectory(subdir);
+    res.json({ message: "Ok" });
+  } catch (err) {
+    next(err);
+  }
+}
