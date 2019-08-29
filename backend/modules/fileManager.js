@@ -14,7 +14,7 @@ const readDirectory = (subDirectory = "") => {
     .map(el => ({ name: el.name, type: el.isDirectory() ? "directories" : "files" }))
     .reduce((acc, el) => ({ ...acc, [el.type]: [ ...acc[el.type], { name: el.name } ] }), { directories: [], files: [] });
 
-    directoryContent.files = directoryContent.files.map(({ name }) => ({ name, details: getFileDetailedInfo(subDirectory, name) }) )
+    directoryContent.files = directoryContent.files.map(({ name }) => ({ name, ...getFileDetailedInfo(subDirectory, name) }) )
   return directoryContent;
 };
 

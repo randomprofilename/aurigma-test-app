@@ -1,7 +1,7 @@
 const router = require("express").Router();
-const { files } = require("../controllers/api");
+const { content, file } = require("../controllers/api");
 
-router.get("/files", files.get);
-// router.post("files")
+router.get("/content", content.get);
+router.get("/file", file.get);
 
 module.exports = router;

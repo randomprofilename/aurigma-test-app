@@ -1,3 +1,4 @@
 module.exports = { 
-  files: require("./files"),
+  content: require("./content"),
+  file: require("./file"),
 };
