@@ -10,7 +10,7 @@ const CustomLayout = ({ children }) => <Layout className="layout">
     <NavBar />
     <div style={{ background: '#fff', padding: 24, minHeight: 280 }}>{children}</div>
   </Content>
-  <Footer style={{ textAlign: 'center' }}>   </Footer>
+  <Footer style={{ textAlign: 'center' }}> <a href="https://github.com/randomprofilename/aurigma-test-app">https://github.com/randomprofilename/aurigma-test-app</a> </Footer>
 </Layout>
 
 export default CustomLayout;

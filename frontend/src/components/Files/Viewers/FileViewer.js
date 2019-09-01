@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import { Modal, Button } from "antd";
+import { Modal, Button, Icon } from "antd";
 import { ContentContext } from "../../../context/Content";
 import { FileContentContext } from "../../../context/FileContent";
 import TextFileViewer from "./TextFileViewer";
@@ -15,6 +15,9 @@ const FileViewer = ({ modalVisible = false, handleOk, handleCancel, filename, fi
   const fileContentContext = useContext(FileContentContext);
   const { fileContent, fetchFile, downloadFile, loading, errored } = fileContentContext;
   const renderFileContentComponent = () => {
+    if (errored)
+      return <Icon style={{ color: 'red' }} type="close-circle" />
+
     switch (fileExtension) {
       case "txt":
       case "js":
@@ -25,11 +28,11 @@ const FileViewer = ({ modalVisible = false, handleOk, handleCancel, filename, fi
       case "yml":
       case "xml":
       case "cmd":
-        return <TextFileViewer loading={loading} errored={errored} fileContent={fileContent} />
+        return <TextFileViewer loading={loading} fileContent={fileContent} />
       case "jpg":
       case "png":
       case "ico":
-        return <ImageFileViewer loading={loading} errored={errored} fileContent={fileContent} />
+        return <ImageFileViewer loading={loading} fileContent={fileContent} />
       default:
         return <UnsupportedFileViewer />
     }
@@ -45,7 +48,7 @@ const FileViewer = ({ modalVisible = false, handleOk, handleCancel, filename, fi
         title={filename}
         visible={modalVisible}
         onCancel={handleCancel}
-        footer={[ <Button key="download" onClick={() => downloadFile(currentPath, filename, false)}> Download </Button> ]}
+        footer={[ <Button key="download" block={true} onClick={() => downloadFile(currentPath, filename, false)}> Download </Button> ]}
         width={1000}
     >
       {renderFileContentComponent()}
