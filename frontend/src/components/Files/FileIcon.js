@@ -7,6 +7,7 @@ const types = type => {
   switch (type) {
     case "png":
     case "jpg":
+    case "webp":
       return "file-image";
 
     case "txt":

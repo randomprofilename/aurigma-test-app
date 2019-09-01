@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { getContent } from "../apis/backend";
 import { message } from "antd";
+import { getContent } from "../apis/backend";
+import config from "../config";
+
+const { websocket_url } = config;
 
 message.config({ maxCount: 3 });
 
 const ContentContext = React.createContext();
-let connection = new WebSocket("ws://localhost:3001");
+
+let connection;
 const refreshSocket = ({ onSocketError, onClose, onMessage, onOpen }) => {
-  connection = new WebSocket("ws://localhost:3001");
+  connection = new WebSocket(websocket_url);
   connection.onopen = onOpen;
   connection.onmessage = onMessage;
   connection.onerror = onSocketError;
@@ -41,22 +45,16 @@ const ContentProvider = (props) => {
     message.success("Socket connected!");
     setContentUpdated(true);
   };
-
   const onSocketError = () => message.error("Socket connection errored");
-
   const onClose = () => setTimeout(() => refreshSocket({ onSocketError, onMessage, onOpen, onClose }), 5000);
   const onMessage = () => {
     message.loading("Updating content", 1);
-    setContentUpdated(true) 
+    setContentUpdated(true);
   };
-
-  connection.onopen = onOpen;
-  connection.onmessage = onMessage;
-  connection.onerror = onSocketError;
-  connection.onclose = onClose;
-
+  
   const changeCurrentPath = currentPath => setCurrentPath(currentPath);
-
+  
+  useEffect(() => refreshSocket({ onSocketError, onMessage, onOpen, onClose }), []);
   useEffect(() => {
     setContentUpdated(false);
     fetchContent(currentPath);

@@ -10,7 +10,7 @@ const FileViewer = ({ modalVisible = false, handleOk, handleCancel, filename, fi
   const contentContext = useContext(ContentContext);
   const { currentPath } = contentContext;
 
-  const canBePreviewed = fileExtension => [ "txt", "js", "json", "md", "lua", "bat", "yml", "xml", "cmd", "jpg", "png", "ico" ].includes(fileExtension);
+  const canBePreviewed = fileExtension => [ "txt", "js", "json", "md", "lua", "bat", "yml", "xml", "cmd", "jpg", "png", "ico", "webp" ].includes(fileExtension);
 
   const fileContentContext = useContext(FileContentContext);
   const { fileContent, fetchFile, downloadFile, loading, errored } = fileContentContext;
@@ -23,13 +23,13 @@ const FileViewer = ({ modalVisible = false, handleOk, handleCancel, filename, fi
       case "js":
       case "json":
       case "md":
-      case "lua":
       case "bat":
       case "yml":
       case "xml":
       case "cmd":
         return <TextFileViewer loading={loading} fileContent={fileContent} />
       case "jpg":
+      case "webp":
       case "png":
       case "ico":
         return <ImageFileViewer loading={loading} fileContent={fileContent} />

@@ -1,7 +1,8 @@
 import axios from "axios";
 import config from "../config";
 
-const backendClient = axios.create({ baseURL: config.backend_url });
+const { backend_url, backend_api_endpoint } = config
+const backendClient = axios.create({ baseURL: config.backend_url + backend_api_endpoint });
 
 const getContent = async (subdir ="") => {
   const { data: { data } } = await backendClient.get("/content", { params: { 
