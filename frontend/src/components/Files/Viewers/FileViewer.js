@@ -41,6 +41,7 @@ const FileViewer = ({ modalVisible = false, handleOk, handleCancel, filename, fi
   useEffect(() =>{
     if (modalVisible && canBePreviewed(fileExtension))
       fetchFile(currentPath, filename, true);
+      // eslint-disable-next-line
   }, [modalVisible])
 
   return <>

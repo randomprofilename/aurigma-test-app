@@ -53,7 +53,7 @@ const ContentProvider = (props) => {
   };
   
   const changeCurrentPath = currentPath => setCurrentPath(currentPath);
-  
+  // eslint-disable-next-line
   useEffect(() => refreshSocket({ onSocketError, onMessage, onOpen, onClose }), []);
   useEffect(() => {
     setContentUpdated(false);
