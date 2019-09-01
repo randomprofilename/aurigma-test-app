@@ -10,6 +10,8 @@ const FileViewer = ({ modalVisible = false, handleOk, handleCancel, filename, fi
   const contentContext = useContext(ContentContext);
   const { currentPath } = contentContext;
 
+  const canBePreviewed = fileExtension => [ "txt", "js", "json", "md", "lua", "bat", "yml", "xml", "cmd", "jpg", "png", "ico" ].includes(fileExtension);
+
   const fileContentContext = useContext(FileContentContext);
   const { fileContent, fetchFile, downloadFile, loading, errored } = fileContentContext;
   const renderFileContentComponent = () => {
@@ -34,7 +36,7 @@ const FileViewer = ({ modalVisible = false, handleOk, handleCancel, filename, fi
   }
 
   useEffect(() =>{
-    if (modalVisible)
+    if (modalVisible && canBePreviewed(fileExtension))
       fetchFile(currentPath, filename, true);
   }, [modalVisible])
 

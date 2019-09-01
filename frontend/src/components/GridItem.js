@@ -3,8 +3,11 @@ import React, { useState } from "react";
 const GridItem = ({ children }) => {
   const [ hovered, setHovered ] = useState(false);
 
-  return <div     
-    style= {{ background: hovered ? "linear-gradient(0deg, rgba(45,172,253,0.3) 0%, rgba(45,57,253,0.3) 100%)" : undefined }} 
+  return <div
+    style= {{
+      backgroundImage: hovered ? "linear-gradient(to top, #accbee 0%, #c7deff 100%)": undefined,
+      borderRadius: "5px"
+    }} 
     onMouseEnter={() => setHovered(true)} 
     onMouseLeave={() => setHovered(false)}
   >

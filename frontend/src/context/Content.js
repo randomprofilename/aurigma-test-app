@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import { getContent } from "../apis/backend";
 import { message } from "antd";
 
+message.config({ maxCount: 3 });
+
 const ContentContext = React.createContext();
-
 let connection = new WebSocket("ws://localhost:3001");
-
 const refreshSocket = ({ onSocketError, onClose, onMessage, onOpen }) => {
   connection = new WebSocket("ws://localhost:3001");
   connection.onopen = onOpen;
