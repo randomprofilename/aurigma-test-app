@@ -44,7 +44,7 @@ const ContentList = ({ iconSize = "100px" }) => {
     {folders.length <1 && files.length < 1 ? 
       loading ?
         <Skeleton /> : 
-        <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description={<><p>Folder is empty</p><p>Just upload something</p></>}/>
+        <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description={"Folder is empty. Just upload something"}/>
     : ""}
     </Spin>
   </>

@@ -10,6 +10,7 @@ const UploadModal = ({ modalVisible= false, onCancel, setModalVisible }) => {
 
   const [ files, setFiles ] = useState([]);
   const [ uploading, setUploading ] = useState(false);
+  const [ directory, setDirectory ] = useState(currentPath);
 
   const onFileChoosed = file => {
     setFiles([...files, file]);
@@ -22,7 +23,7 @@ const UploadModal = ({ modalVisible= false, onCancel, setModalVisible }) => {
 
   const onSubmit = async () => {
     setUploading(true);
-    await postFile(currentPath, files);
+    await postFile(directory, files);
     message.success("Uploaded successfully!");
     setTimeout(() => {
       setUploading(false);
@@ -40,6 +41,8 @@ const UploadModal = ({ modalVisible= false, onCancel, setModalVisible }) => {
         width={1000}
     >
       <UploadForm
+        uploadDirectory={directory}
+        onChange={setDirectory}
         files={files}
         uploading={uploading} 
         onSubmit={onSubmit} 

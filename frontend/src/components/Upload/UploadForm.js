@@ -1,8 +1,9 @@
 import React from "react";
 import { Upload, Icon, Button, Form, Input } from "antd";
 
-const UploadForm = ({ files, uploading, currentPath, beforeUpload, onRemove, onSubmit }) => <>
-  <Input label={"Uploading to directory:"} value={currentPath} placeholder="/" disabled/>
+const UploadForm = ({ files, uploading, uploadDirectory, onChange, beforeUpload, onRemove, onSubmit }) => <>
+  <p>Set directory to upload. New folder will be created(if requires):</p>
+  <Input value={uploadDirectory} onChange={e => onChange(e.target.value)} placeholder="/"/>
   <Form.Item label="Choose Files:">
     <Upload fileList={files} beforeUpload={beforeUpload} onRemove={onRemove}>
       <Button disabled={uploading}>

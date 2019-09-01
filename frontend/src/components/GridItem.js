@@ -1,20 +1,15 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 
-class GridItem extends Component {
-  state = { hovered: false };
+const GridItem = ({ children }) => {
+  const [ hovered, setHovered ] = useState(false);
 
-  render() {
-    const { children } = this.props;
-    const { hovered } = this.state;
-
-    return <div     
-      style= {{ background: hovered ? "linear-gradient(0deg, rgba(45,172,253,0.3) 0%, rgba(45,57,253,0.3) 100%)" : undefined }} 
-      onMouseEnter={() => this.setState({ hovered: true }) } 
-      onMouseLeave={() => this.setState({ hovered: false })}
-    >
-      {children}
-    </div>
-  }
+  return <div     
+    style= {{ background: hovered ? "linear-gradient(0deg, rgba(45,172,253,0.3) 0%, rgba(45,57,253,0.3) 100%)" : undefined }} 
+    onMouseEnter={() => setHovered(true)} 
+    onMouseLeave={() => setHovered(false)}
+  >
+    {children}
+  </div>
 }
 
 export default GridItem;

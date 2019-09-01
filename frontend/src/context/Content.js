@@ -4,8 +4,15 @@ import { message } from "antd";
 
 const ContentContext = React.createContext();
 
+let connection = new WebSocket("ws://localhost:3001");
 
-const connection = new WebSocket("ws://localhost:3001");
+const refreshSocket = ({ onSocketError, onClose, onMessage, onOpen }) => {
+  connection = new WebSocket("ws://localhost:3001");
+  connection.onopen = onOpen;
+  connection.onmessage = onMessage;
+  connection.onerror = onSocketError;
+  connection.onclose = onClose;
+}
 
 const ContentProvider = (props) => {
   const [ files, setFiles ] = useState([]);
@@ -30,15 +37,23 @@ const ContentProvider = (props) => {
     }
   };
 
+  const onOpen = () => {
+    message.success("Socket connected!");
+    setContentUpdated(true);
+  };
 
-  connection.onerror = () => {
-    message.error("Socket connection errored");
-  }
-  
-  connection.onmessage = () => {
+  const onSocketError = () => message.error("Socket connection errored");
+
+  const onClose = () => setTimeout(() => refreshSocket({ onSocketError, onMessage, onOpen, onClose }), 5000);
+  const onMessage = () => {
     message.loading("Updating content", 1);
     setContentUpdated(true) 
   };
+
+  connection.onopen = onOpen;
+  connection.onmessage = onMessage;
+  connection.onerror = onSocketError;
+  connection.onclose = onClose;
 
   const changeCurrentPath = currentPath => setCurrentPath(currentPath);
 

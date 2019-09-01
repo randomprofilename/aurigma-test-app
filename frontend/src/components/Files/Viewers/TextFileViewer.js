@@ -1,11 +1,10 @@
 import React from "react";
 import { Spin } from "antd";
 
-function blobToString(b) {
-  var u, x;
-  u = URL.createObjectURL(b);
-  x = new XMLHttpRequest();
-  x.open('GET', u, false); // although sync, you're not fetching over internet
+const blobToString = b => {
+  const u = URL.createObjectURL(b);
+  const x = new XMLHttpRequest();
+  x.open('GET', u, false);
   x.send();
   URL.revokeObjectURL(u);
   return x.responseText;

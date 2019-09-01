@@ -17,8 +17,8 @@ const values = {
 
 const FilePopover = ({ children, fileDetail = {} }) => {
   const popoverContent = Object.entries(fileDetail).map(([key,value]) => {
-    return <p><b>{names[key]}</b>: {values[key](value)}</p>
-  }).concat(<DeleteButton filename={fileDetail.name} />);
+    return <p key={key}><b>{names[key]}</b>: {values[key](value)}</p>
+  }).concat(<DeleteButton key="delete button" filename={fileDetail.name} />);
   return <Popover content={popoverContent} >
     {children}
   </Popover>

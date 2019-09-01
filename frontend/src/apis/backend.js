@@ -4,7 +4,6 @@ import config from "../config";
 const backendClient = axios.create({ baseURL: config.backend_url });
 
 const getContent = async (subdir ="") => {
-
   const { data: { data } } = await backendClient.get("/content", { params: { 
     subdir: `${subdir.charAt(0)==="/" ? "": "/"}${subdir}`
   } });
@@ -32,7 +31,7 @@ const getFile = async (subdir, filename, preview) => {
 
 const postFile = async (subdir, files = []) => {
   const formData = new FormData();
-  formData.set("subdir", subdir);
+  formData.set("subdir", `${subdir.charAt(0)==="/" ? "": "/"}${subdir}`);
   files.forEach(file => formData.append(file.name, file));
 
   const { data } = await backendClient.post("/file", formData, { headers: {'Content-Type': 'multipart/form-data' }});
@@ -44,4 +43,9 @@ const deleteFile = async (subdir, filename) => {
   return data;
 };
 
-export { getContent, getFile, postFile, deleteFile };
+const deleteDirectory = async subdir => {
+  const { data } = await backendClient.delete("/content", { params: { subdir: `${subdir.charAt(0)==="/" ? "": "/"}${subdir}` }});
+  return data;
+};
+
+export { getContent, getFile, postFile, deleteFile, deleteDirectory };
