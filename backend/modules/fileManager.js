@@ -11,8 +11,8 @@ const readDirectory = (subDirectory = "") => {
   const currentDirectory = workingDirectory + subDirectory;
 
   const directoryContent = fs.readdirSync(currentDirectory, { withFileTypes: true })
-    .map(el => ({ name: el.name, type: el.isDirectory() ? "directories" : "files" }))
-    .reduce((acc, el) => ({ ...acc, [el.type]: [ ...acc[el.type], { name: el.name } ] }), { directories: [], files: [] });
+    .map(el => ({ name: el.name, type: el.isDirectory() ? "folders" : "files" }))
+    .reduce((acc, el) => ({ ...acc, [el.type]: [ ...acc[el.type], { name: el.name } ] }), { folders: [], files: [] });
 
     directoryContent.files = directoryContent.files.map(({ name }) => ({ name, ...getFileDetailedInfo(subDirectory, name) }) )
   return directoryContent;
@@ -45,4 +45,7 @@ const removeDirectory = subDirectory => {
   fs.rmdirSync(currentDirectory);
 };
 
-module.exports = { readDirectory, readFile, writeFile, deleteFile, removeDirectory };
+const watcher = callback => //(eventType, filename) => console.log(`${eventType} ${filename}`
+  fs.watch(workingDirectory,{ recursive: true }, callback);
+
+module.exports = { readDirectory, readFile, writeFile, deleteFile, removeDirectory, watcher };
