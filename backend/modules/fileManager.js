@@ -1,5 +1,5 @@
 const fs = require("fs");
-const { workingDirectory } = require("../config");
+const { workingDirectory } = require("../web.config");
 
 const getFileDetailedInfo = (subDirectory, filename) => {
   const currentDirectory = workingDirectory + subDirectory;

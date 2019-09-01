@@ -4,7 +4,7 @@ const morgan = require("morgan");
 const formidable = require('express-formidable');
 const ws = require("ws");
 
-const { serverPort } = require("./config");
+const { serverPort } = require("./web.config");
 const { errorHandler } = require("./middleware");
 const { watcher } = require("./modules/fileManager");
 const router = require("./routes");

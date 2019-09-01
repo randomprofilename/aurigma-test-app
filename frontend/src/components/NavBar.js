@@ -20,7 +20,7 @@ const NavBar = () =>{
       <Menu.Item disabled>Current folder:</Menu.Item>
       <Menu.Item onClick={() => changeCurrentPath("")}> / </Menu.Item>
       {items()}
-      <Menu.Item style={{ float:"right" }} onClick={() => setShowUploadModal(true)}><Button type="primary" > Upload File</Button></Menu.Item>
+      <Menu.Item style={{ float:"right" }} onClick={() => setShowUploadModal(true)}><Button type="primary" > Upload Files</Button></Menu.Item>
     </Menu>
     <UploadModal modalVisible={showUploadModal} onCancel={() => setShowUploadModal(false)}/>
   </>
